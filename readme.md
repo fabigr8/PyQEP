@@ -1,5 +1,5 @@
 
-# QEPest: Quantitative Estimation of Pesticide-likeness
+# Python QEPest: Quantitative Estimation of Pesticide-likeness
 
 This module provides functions to calculate quantitative estimates of pesticide-likeness (QEP), including herbicide-likeness (QEH), insecticide-likeness (QEI), and fungicide-likeness (QEF). The implementation is based on the work described in:
 
