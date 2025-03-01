@@ -35,7 +35,7 @@ QEPestProperties = namedtuple('QEPestProperties', 'MW,ALOGP,HBA,HBD,RB,ARR')
 WEIGHT_DEFAULT = QEPestProperties(1.00, 1.00, 1.00, 1.00, 1.00, 1.00)  # Equal weights
 WEIGHT_CUSTOM = QEPestProperties(0.66, 0.75, 0.55, 0.40, 0.60, 0.70)   # Custom weights
 
-# reverse engineered the original QEPest Parameters via the .jar file
+# reverse engineered the original QEPest Parameters via the .jar file provided by the authors
 # Parameters for herbicide-likeness (QEH)
 # Format: [a, b, c, o] for each descriptor
 HERB_PARAMS = [
