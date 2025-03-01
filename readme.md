@@ -5,6 +5,9 @@ This module provides functions to calculate quantitative estimates of pesticide-
 
 Avram, S., Funar-Timofei, S., Borota, A., Chennamaneni, S.R., Manchala, A.K., & Muresan, S. (2014). Quantitative estimation of pesticide-likeness for agrochemical discovery. Journal of Cheminformatics, 6, 42. https://doi.org/10.1186/s13321-014-0042-6
 
+> [!IMPORTANT]  
+> We will hopefully soon integrate this into [RDKIT](https://www.rdkit.org/)
+  
 ## Molecular Descriptors
 QEP is a derivative of the QED with adapted descriptors (as parameters of a scoring function) to evaluate pesticide likeliness. It implements three sub-metrics: Quantitative Estimates of Herbicide-likeness (QEH), Insecticide-likeness (QEI), and Fungicide-likeness (QEF).
 
