@@ -35,6 +35,7 @@ QEPestProperties = namedtuple('QEPestProperties', 'MW,ALOGP,HBA,HBD,RB,ARR')
 WEIGHT_DEFAULT = QEPestProperties(1.00, 1.00, 1.00, 1.00, 1.00, 1.00)  # Equal weights
 WEIGHT_CUSTOM = QEPestProperties(0.66, 0.75, 0.55, 0.40, 0.60, 0.70)   # Custom weights
 
+# reverse engineered the original QEPest Parameters via the .jar file
 # Parameters for herbicide-likeness (QEH)
 # Format: [a, b, c, o] for each descriptor
 HERB_PARAMS = [
@@ -82,6 +83,11 @@ def compute_df(x, a, b, c, o):
     Args:
         x: Property value
         a, b, c, o: Parameters for the desirability function
+        a: Amplitude
+        b: Location
+        c: Scale
+        o: Offset
+        
         
     Returns:
         The desirability function value
