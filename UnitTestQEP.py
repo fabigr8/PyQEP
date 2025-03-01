@@ -37,16 +37,16 @@ SAMPLE_DATA = [
      "QEH": 0.8099, "QEI": 0.8118, "QEF": 0.8742}
 ]
 
-# Example pesticides with SMILES and expected values
+# Sample data of pesticides  SMILES and expected values calculated via the original QEPest Java implementation
 SAMPLE_MOLECULES = [
     # name, smiles, qeh, qei, qef
-    ("Glyphosate", "C(C(=O)O)NCP(=O)(O)O", 0.8272, 0.4118, 0.5603),
-    ("Glyphosate2", "OCC(O)(P(O)(O)=O)NC(=O)C", 0.8272, 0.4118, 0.5603), # different representation
-    ("2,4-D", "COc1cc(Cl)c(C(=O)O)cc1Cl", 0.9104, 0.6342, 0.7215),
-    ("Imidacloprid", "O=[N+]([O-])NC1=NCCN1Cc2cnc(Cl)s2", 0.6523, 0.8728, 0.6914),
-    ("Chlorpyrifos", "CCOP(=S)(OCC)Oc1nc(Cl)c(Cl)cc1Cl", 0.5723, 0.8902, 0.6124),
-    ("Azoxystrobin", "COC(=CC1=CC=CC=C1C(=O)OC)C=NN=C(OC)c2ccccc2", 0.4856, 0.6821, 0.7982),
-    ("Tebuconazole", "CC(C)(C)C(O)C(n1cncn1)c2ccc(Cl)cc2", 0.7426, 0.7132, 0.8516)
+    ("Glyphosate", "C(C(=O)O)NCP(=O)(O)O", 0.136, 0.2136, 0.2092), 
+    ("Glyphosate2", "OCC(O)(P(O)(O)=O)NC(=O)C", 0.1443, 0.174, 0.199), # different representation
+    ("2,4-D", "C1=CC(=C(C=C1Cl)Cl)OCC(=O)O", 0.8924, 0.6358, 0.7475),
+    ("Imidacloprid", "C1CN(C(=N1)N[N+](=O)[O-])CC2=CN=C(C=C2)Cl", 0.5525, 0.4565, 0.5302),
+    ("Chlorpyrifos", "CCOP(=S)(OCC)OC1=NC(=C(C=C1Cl)Cl)Cl", 0.7672, 0.7064, 0.6119),
+    ("Azoxystrobin", "CO/C=C(/C(=O)OC)c1ccccc1Oc1cc(Oc2ccccc2C#N)ncn1", 0.4402, 0.3398, 0.2722),
+    ("Tebuconazole", "CC(C)(C)C(CCC1=CC=C(C=C1)Cl)(CN2C=NC=N2)O", 0.8732, 0.5928, 0.6851)
 ]
 
 
@@ -80,27 +80,27 @@ class TestCase(unittest.TestCase):
                         msg='QEPest version has changed. Update the regression tests if required.')
     
     def testProperties(self):
-        """Test the property calculations"""
+        """Test the property calculations on Glyphosate"""
         # Glyphosate
-        m = Chem.MolFromSmiles("OCC(O)(P(O)(O)=O)NC(=O)C")
+        m = Chem.MolFromSmiles("C(C(=O)O)NCP(=O)(O)O")
         p = qepest.properties(m)
         
-        self.assertAlmostEqual(p.MW, 169.073, places=3)
-        self.assertAlmostEqual(p.ALOGP, -3.99, places=2) 
-        self.assertEqual(p.HBA, 6)
+        self.assertAlmostEqual(p.MW, 169.07, places=2) # may needs to be reduced to 1 hence floating point error
+        self.assertAlmostEqual(p.ALOGP, -1.2 , places=2) # may needs to be reduced to 1 hence floating point error
+        self.assertEqual(p.HBA, 3)
         self.assertEqual(p.HBD, 4)
-        self.assertEqual(p.RB, 5)
+        self.assertEqual(p.RB, 4)
         self.assertEqual(p.ARR, 0)
         
         # Check that adding hydrogens will not change the result
         mol_h = Chem.AddHs(m)
         p_h = qepest.properties(mol_h)
         
-        self.assertAlmostEqual(p_h.MW, 169.073, places=3)
-        self.assertAlmostEqual(p_h.ALOGP, -3.99, places=2)
-        self.assertEqual(p_h.HBA, 6)
+        self.assertAlmostEqual(p_h.MW, 169.07, places=2) # may needs to be reduced to 1 hence floating point error
+        self.assertAlmostEqual(p_h.ALOGP, -1.2, places=2) # may needs to be reduced to 1 hence floating point error
+        self.assertEqual(p_h.HBA, 3)
         self.assertEqual(p_h.HBD, 4)
-        self.assertEqual(p_h.RB, 5)
+        self.assertEqual(p_h.RB, 4)
         self.assertEqual(p_h.ARR, 0)
     
     def testSampleMolecules(self):
@@ -239,7 +239,7 @@ class TestCase(unittest.TestCase):
     
     def testSupplementaryData(self):
         """Test against supplementary data from the authors"""
-        print("\nTesting against authors' supplementary data:")
+        #print("\nTesting against authors' supplementary data:")
         
         # Test each molecule from SAMPLE_DATA
         for mol_data in SAMPLE_DATA:
@@ -290,29 +290,29 @@ def createTestData():
     
     # Known herbicides
     herbicides = [
-        "OCC(O)(P(O)(O)=O)NC(=O)C",  # Glyphosate
-        "COc1cc(Cl)c(C(=O)O)cc1Cl",  # 2,4-D
-        "CC(C)CNc1nc(Cl)nc(NC(C)C)n1",  # Atrazine
-        "Cc1cc(Oc2ccc(Cl)cc2Cl)ccc1[N+](=O)[O-]",  # Nitrofen
-        "CC(C)(C)c1ccc(OCC(=O)O)cc1",  # MCPA
+        r"CCNC1=NC(=NC(=N1)Cl)NC(C)C ",  # Atrazine PubChem
+        r"CCNc1nc(Cl)nc(NC(C)C)n1"       # Astracine CHEMBL
+        r"C1=CC(=C(C=C1Cl)Cl)OCC(=O)O",  # 2,4-D PubChem
+        r"C(C(=O)O)NCP(=O)(O)O",  # Glyphosate  PubChem
+        r"C1=CC(=CC=C1[N+](=O)[O-])OC2=C(C=C(C=C2)Cl)Cl",  # Nitrofen PubChem
     ]
     
     # Known insecticides
     insecticides = [
-        "O=[N+]([O-])NC1=NCCN1Cc2cnc(Cl)s2",  # Imidacloprid
-        "CCOP(=S)(OCC)Oc1nc(Cl)c(Cl)cc1Cl",  # Chlorpyrifos
-        "CC(C)Cc1ccc(cc1)C(C)(C)CN1C(=O)NC(=O)C(Cl)=C1Cl",  # Fipronil
-        "COP(=S)(OC)Oc1ccc(cc1)Sc2ccc(cc2)Cl",  # Methidation
-        "CNC(=O)Oc1cccc2C(C)(C)C1OC2",  # Carbaryl
+        r"C1CN(C(=N1)N[N+](=O)[O-])CC2=CN=C(C=C2)Cl",  # Imidacloprid PubChem
+        r"O=[N+]([O-])/N=C1\NCCN1Cc1ccc(Cl)nc1"        #Imidacloprid CHEMBL
+        r"CCOP(=S)(OCC)OC1=NC(=C(C=C1Cl)Cl)Cl",  # Chlorpyrifos PubChem
+        r"C1=C(C=C(C(=C1Cl)N2C(=C(C(=N2)C#N)S(=O)C(F)(F)F)N)Cl)C(F)(F)F",  # Fipronil PubChem
+        r"COC1=NN(C(=O)S1)CSP(=S)(OC)OC",  # Methidation PubChem
     ]
     
     # Known fungicides
     fungicides = [
-        "COC(=CC1=CC=CC=C1C(=O)OC)C=NN=C(OC)c2ccccc2",  # Azoxystrobin
-        "CC(C)(C)C(O)C(n1cncn1)c2ccc(Cl)cc2",  # Tebuconazole
-        "CCOc1ccc(cc1)Oc2ccc(OCCN)cc2",  # Triforine
-        "OC1CCC(C)CC1O",  # Propiconazole
-        "OC(Cn1cncn1)(c2ccc(Cl)cc2)c3ccccc3Cl",  # Difenoconazole
+        r"CO/C=C(\C1=CC=CC=C1OC2=NC=NC(=C2)OC3=CC=CC=C3C#N)/C(=O)OC ",  # Azoxystrobin PubChem: 3034285
+        r"CO/C=C(/C(=O)OC)c1ccccc1Oc1cc(Oc2ccccc2C#N)ncn1"   #Azoxystrobin CHEMBL230001 values should be same as above
+        r"CC(C)(C)C(CCC1=CC=C(C=C1)Cl)(CN2C=NC=N2)O",  # Tebuconazole PubChem
+        r"C(C(Cl)(Cl)Cl)(NC=O)N1CCN(C(C(Cl)(Cl)Cl)NC=O)CC1",  # Triforine CAS SMILES
+        r"CCCC1COC(O1)(CN2C=NC=N2)C3=C(C=C(C=C3)Cl)Cl",  # Propiconazole PubChem
     ]
     
     # Create test data files
