@@ -79,7 +79,26 @@ The implementation provides unittest inlcuding tests comparing outputs to origin
 ```bash
 python -m unittest -v UnitTestQEP.py
 ```
+## Cite
 
+As this repository is not part of the original work, please cite the original work:
+
+```bibtex
+
+@article{avram2014quantitative,
+  title={Quantitative estimation of pesticide-likeness for agrochemical discovery},
+  author={Avram, Sorin and Funar-Timofei, Simona and Borota, Ana and Chennamaneni, Sridhar Rao and Manchala, Anil Kumar and Muresan, Sorel},
+  journal={Journal of Cheminformatics},
+  volume={6},
+  pages={1--11},
+  issn = {1758-2946},
+  publisher = {BioMed Central},
+  doi = {10.1186/s13321-014-0042-6},
+  year={2014},
+  publisher={Springer}
+}
+
+```
 
 ## License
 
