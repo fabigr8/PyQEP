@@ -6,14 +6,18 @@ This module provides functions to calculate quantitative estimates of pesticide-
 Avram, S., Funar-Timofei, S., Borota, A., Chennamaneni, S.R., Manchala, A.K., & Muresan, S. (2014). Quantitative estimation of pesticide-likeness for agrochemical discovery. Journal of Cheminformatics, 6, 42. https://doi.org/10.1186/s13321-014-0042-6
 
 ## Molecular Descriptors
+QEP is a derivative of the QED with adapted descriptors (as parameters of a scoring function) to evaluate pesticide likeliness. It implements three sub-metrics: Quantitative Estimates of Herbicide-likeness (QEH), Insecticide-likeness (QEI), and Fungicide-likeness (QEF).
 
-The QEPest metrics use six molecular descriptors:
-- Molecular weight (MW)
-- LogP (hydrophobicity)
-- Number of hydrogen bond acceptors (HBA)
-- Number of hydrogen bond donors (HBD)
-- Number of rotatable bonds (RB)
-- Number of aromatic rings (ARR)
+- At its core, it is a scoring function that uses a set of six molecular descriptors:
+  - molecular weight (MW),
+  - logP (hydrophobicity),
+  - number of hydrogen bond acceptors (HBA),
+  - number of hydrogen bond donors (HBD),
+  - number of rotatable bonds (RB),
+  - and number of aromatic rings (arR).
+
+- The specific weights assigned to each molecular descriptor in the scoring function were determined through curve fitting and an optimization process and are derived from 19,459 pesticides from the GVKBio agrochemical patents collection (AgroSAR).  
+
 
 ## Installation
 
