@@ -1,0 +1,10 @@
+backports.tarfile==1.2.0
+httpx==0.28.1
+importlib-metadata==8.0.0
+jaraco.collections==5.1.0
+pip-chill==1.0.3
+pipreqs==0.4.13
+poetry==2.1.1
+rdkit==2024.9.5
+tomli==2.0.1
+zstandard==0.23.0
