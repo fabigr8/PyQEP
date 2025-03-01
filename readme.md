@@ -68,6 +68,15 @@ print(f"Default QEH: {qeh_default}, QEI: {qei_default}, QEF: {qef_default}")
 - `qep_avg(mol, w=WEIGHT_DEFAULT, qepest_props=None)`: Returns the average value of QEH, QEI, and QEF.
 - `default(mol)`: Calculates QEH, QEI, and QEF with default weights and returns them as a tuple.
 
+
+## Unit test
+The implementation provides unittest inlcuding tests comparing outputs to original authors data as well as a created testset with well known herbicides. 
+
+```bash
+python -m unittest -v UnitTestQEP.py
+```
+
+
 ## License
 
 This project is licensed under the MIT License.
